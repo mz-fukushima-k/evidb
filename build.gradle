@@ -1,0 +1,75 @@
+wrapper {
+    gradleVersion = '6.6.1'
+}
+
+allprojects  {
+  group = 'com.mamezou.evidb'
+  version = '1.0-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'maven'
+  apply plugin: 'maven-publish'
+
+  repositories {
+    mavenCentral()
+    mavenLocal()
+  }
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  tasks.withType(JavaCompile) {
+  	options.encoding = 'UTF-8'
+  }
+
+  dependencies {
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testImplementation 'junit:junit:4.12'
+  }
+
+  eclipse {
+    classpath {
+      defaultOutputDir = file('build/classes/java/main')
+      file {
+        whenMerged {
+            entries.each { source ->
+              if (source.kind == 'src' && !source.path.startsWith('/')) {
+                if (source.path.indexOf("/test") >= 0) {
+                  source.output = 'build/classes/test/main'
+                } else {
+                  source.output = 'build/classes/java/main'
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+  }
+
+  publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "$System.env.USERPROFILE/.m2/repository"
+        }
+    }
+  }
+
+}

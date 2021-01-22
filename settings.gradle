@@ -1,0 +1,10 @@
+rootProject.name = 'evidb'
+include ':evidb-core'
+include ':evidb-sqlgen'
+include ':evidb-dump'
+include ':evidb-diff'
+
+project(':evidb-core').projectDir = "$rootDir/evidb-core" as File
+project(':evidb-sqlgen').projectDir = "$rootDir/evidb-sqlgen" as File
+project(':evidb-dump').projectDir = "$rootDir/evidb-dump" as File
+project(':evidb-diff').projectDir = "$rootDir/evidb-diff" as File
