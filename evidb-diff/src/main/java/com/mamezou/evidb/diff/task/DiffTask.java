@@ -104,7 +104,6 @@ public class DiffTask extends Task {
 
 		} else if (StringUtils.isEmpty(before) || StringUtils.isEmpty(after)) {
 			// 片方 null
-
 			List<File> recentFiles = getRecentFiles();
 
 			if (recentFiles.size() < 1) {
