@@ -190,6 +190,9 @@ public class DiffTask extends Task {
 		try (InputStream in = this.getClass().getResourceAsStream("/com/mamezou/evidb/diff/template/report.xlsx");
 				OutputStream out = new FileOutputStream(new File(reportDir, reportFile))) {
 			Workbook workbook = transformer.transform(in, templateSheetNames, sheetNames, params);
+			if (params.size() == 1) {
+				workbook.removeSheetAt(1);
+			}
 			workbook.write(out);
 			workbook.close();
 		} catch (InvalidFormatException | IOException e) {
