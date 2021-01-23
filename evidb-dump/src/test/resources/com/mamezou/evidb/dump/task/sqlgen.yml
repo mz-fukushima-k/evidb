@@ -1,0 +1,254 @@
+settings:
+  items:
+    - table-name : actor
+      table-comment : 出演者
+      column-name :
+        actor_id : 出演者ID
+        first_name : 名
+        last_name : 姓
+        last_update : 最終更新日
+      query : |
+        SELECT
+           actor_id , first_name , last_name , last_update 
+        FROM
+          actor
+        ORDER BY
+           actor_id 
+
+    - table-name : address
+      table-comment : 住所
+      column-name :
+        address_id : 住所ID
+        address : 住所1
+        address2 : 住所2
+        district : 地区
+        city_id : 都市ID
+        postal_code : 郵便番号
+        phone : 電話番号
+        last_update : 最終更新日
+      query : |
+        SELECT
+           address_id , address , address2 , district , city_id , postal_code , phone , last_update 
+        FROM
+          address
+        ORDER BY
+           address_id 
+
+    - table-name : category
+      table-comment : カテゴリー
+      column-name :
+        category_id : カテゴリーID
+        name : カテゴリー名
+        last_update : 最終更新日
+      query : |
+        SELECT
+           category_id , name , last_update 
+        FROM
+          category
+        ORDER BY
+           category_id 
+
+    - table-name : city
+      table-comment : 都市
+      column-name :
+        city_id : 都市ID
+        city : 都市名
+        country_id : 国ID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           city_id , city , country_id , last_update 
+        FROM
+          city
+        ORDER BY
+           city_id 
+
+    - table-name : country
+      table-comment : 国
+      column-name :
+        country_id : 国ID
+        country : 国名
+        last_update : 最終更新日
+      query : |
+        SELECT
+           country_id , country , last_update 
+        FROM
+          country
+        ORDER BY
+           country_id 
+
+    - table-name : customer
+      table-comment : 顧客
+      column-name :
+        customer_id : 顧客ID
+        store_id : 店舗ID
+        first_name : 名
+        last_name : 姓
+        email : メール
+        address_id : 住所ID
+        activebool : 有効フラグ
+        create_date : 作成日
+        last_update : 最終更新日
+        active : 有効区分
+      query : |
+        SELECT
+           customer_id , store_id , first_name , last_name , email , address_id , activebool , create_date , last_update , active 
+        FROM
+          customer
+        ORDER BY
+           customer_id 
+
+    - table-name : film
+      table-comment : フィルム
+      column-name :
+        film_id : フィルムID
+        title : タイトル
+        description : 説明
+        release_year : 発売日
+        language_id : 言語ID
+        rental_duration : レンタル期間
+        rental_rate : レンタル料
+        length : 時間
+        replacement_cost : 交換費用
+        rating : 評価
+        last_update : 最終更新日
+        special_features : 特記事項
+        fulltext : 全文
+      query : |
+        SELECT
+           film_id , title , description , release_year , language_id , rental_duration , rental_rate , length , replacement_cost , rating , last_update , special_features , fulltext 
+        FROM
+          film
+        ORDER BY
+           film_id 
+
+    - table-name : film_actor
+      table-comment : 出演者
+      column-name :
+        actor_id : 出演者ID
+        film_id : フィルムID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           actor_id , film_id , last_update 
+        FROM
+          film_actor
+        ORDER BY
+           actor_id , film_id 
+
+    - table-name : film_category
+      table-comment : フィルムカテゴリー
+      column-name :
+        film_id : フィルムID
+        category_id : カテゴリーID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           film_id , category_id , last_update 
+        FROM
+          film_category
+        ORDER BY
+           film_id , category_id 
+
+    - table-name : inventory
+      table-comment : 在庫
+      column-name :
+        inventory_id : 在庫ID
+        film_id : フィルムID
+        store_id : 店舗ID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           inventory_id , film_id , store_id , last_update 
+        FROM
+          inventory
+        ORDER BY
+           inventory_id 
+
+    - table-name : language
+      table-comment : 言語
+      column-name :
+        language_id : 言語ID
+        name : 言語名
+        last_update : 最終更新日
+      query : |
+        SELECT
+           language_id , name , last_update 
+        FROM
+          language
+        ORDER BY
+           language_id 
+
+    - table-name : payment
+      table-comment : 支払
+      column-name :
+        payment_id : 支払ID
+        customer_id : 顧客ID
+        staff_id : スタッフID
+        rental_id : レンタルID
+        amount : 料金
+        payment_date : 支払日
+      query : |
+        SELECT
+           payment_id , customer_id , staff_id , rental_id , amount , payment_date 
+        FROM
+          payment
+        ORDER BY
+           payment_id 
+
+    - table-name : rental
+      table-comment : レンタル
+      column-name :
+        rental_id : レンタルID
+        rental_date : レンタル日
+        inventory_id : 在庫ID
+        customer_id : 顧客ID
+        return_date : 返却日
+        staff_id : スタッフID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           rental_id , rental_date , inventory_id , customer_id , return_date , staff_id , last_update 
+        FROM
+          rental
+        ORDER BY
+           rental_id 
+
+    - table-name : staff
+      table-comment : スタッフ
+      column-name :
+        staff_id : スタッフID
+        first_name : 名
+        last_name : 姓
+        address_id : 住所ID
+        email : メール
+        store_id : 店舗ID
+        active : 有効区分
+        username : ユーザー名
+        password : パスワード
+        last_update : 最終更新日
+        picture : 画像
+      query : |
+        SELECT
+           staff_id , first_name , last_name , address_id , email , store_id , active , username , password , last_update , picture 
+        FROM
+          staff
+        ORDER BY
+           staff_id 
+
+    - table-name : store
+      table-comment : 店舗
+      column-name :
+        store_id : 店舗ID
+        manager_staff_id : 店舗マネージャーのスタッフID
+        address_id : 住所ID
+        last_update : 最終更新日
+      query : |
+        SELECT
+           store_id , manager_staff_id , address_id , last_update 
+        FROM
+          store
+        ORDER BY
+           store_id 
+
+

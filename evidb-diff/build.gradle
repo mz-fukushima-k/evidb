@@ -1,0 +1,11 @@
+
+description = 'evidb-diff'
+dependencies {
+  implementation project(':evidb-core')
+  implementation 'org.apache.ant:ant:1.10.4'
+  implementation 'org.apache.commons:commons-lang3:3.7'
+  implementation 'net.sf.jett:jett-core:0.10.0'
+  implementation 'com.googlecode.java-diff-utils:diffutils:1.3.0'
+  implementation 'commons-io:commons-io:2.6'
+  implementation 'com.opencsv:opencsv:4.4'
+}

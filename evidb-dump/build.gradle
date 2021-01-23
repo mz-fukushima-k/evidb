@@ -1,0 +1,25 @@
+
+description = 'evidb-dump'
+dependencies {
+  implementation project(':evidb-core')
+  implementation 'org.apache.ant:ant:1.10.4'
+  implementation 'org.apache.commons:commons-lang3:3.7'
+  implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+  implementation 'com.opencsv:opencsv:4.4'
+  implementation 'org.yaml:snakeyaml:1.23'
+  implementation 'org.seasar.doma:doma:2.21.0'
+  annotationProcessor 'org.seasar.doma:doma:2.21.0'
+  testImplementation 'org.postgresql:postgresql:42.2.2'
+}
+
+task copyDomaResources(type: Sync)  {
+  from sourceSets.main.resources.srcDirs
+  into compileJava.destinationDir
+  include 'doma.compile.config'
+  include 'META-INF/**/*.sql'
+  include 'META-INF/**/*.script'
+}
+
+compileJava {
+  dependsOn copyDomaResources
+}

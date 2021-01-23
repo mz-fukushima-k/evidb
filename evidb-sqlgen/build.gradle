@@ -1,0 +1,9 @@
+
+description = 'evidb-sqlgen'
+dependencies {
+  compile project(':evidb-core')
+  implementation 'org.apache.ant:ant:1.10.4'
+  implementation 'org.apache.commons:commons-lang3:3.7'
+  implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+  testImplementation 'org.postgresql:postgresql:42.2.2'
+}

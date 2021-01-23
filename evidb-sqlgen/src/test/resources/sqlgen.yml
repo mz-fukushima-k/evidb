@@ -1,0 +1,357 @@
+- table-name : actor
+  column-name :
+    actor_id : 
+    first_name : 
+    last_name : 
+    last_update : 
+  query : |
+    SELECT
+       actor_id , first_name , last_name , last_update 
+    FROM
+      actor
+    ORDER BY
+       actor_id 
+    ;
+
+- table-name : address
+  column-name :
+    address_id : 
+    address : 
+    address2 : 
+    district : 
+    city_id : 
+    postal_code : 
+    phone : 
+    last_update : 
+  query : |
+    SELECT
+       address_id , address , address2 , district , city_id , postal_code , phone , last_update 
+    FROM
+      address
+    ORDER BY
+       address_id 
+    ;
+
+- table-name : category
+  column-name :
+    category_id : 
+    name : 
+    last_update : 
+  query : |
+    SELECT
+       category_id , name , last_update 
+    FROM
+      category
+    ORDER BY
+       category_id 
+    ;
+
+- table-name : city
+  column-name :
+    city_id : 
+    city : 
+    country_id : 
+    last_update : 
+  query : |
+    SELECT
+       city_id , city , country_id , last_update 
+    FROM
+      city
+    ORDER BY
+       city_id 
+    ;
+
+- table-name : country
+  column-name :
+    country_id : 
+    country : 
+    last_update : 
+  query : |
+    SELECT
+       country_id , country , last_update 
+    FROM
+      country
+    ORDER BY
+       country_id 
+    ;
+
+- table-name : customer
+  column-name :
+    customer_id : 
+    store_id : 
+    first_name : 
+    last_name : 
+    email : 
+    address_id : 
+    activebool : 
+    create_date : 
+    last_update : 
+    active : 
+  query : |
+    SELECT
+       customer_id , store_id , first_name , last_name , email , address_id , activebool , create_date , last_update , active 
+    FROM
+      customer
+    ORDER BY
+       customer_id 
+    ;
+
+- table-name : film
+  column-name :
+    film_id : 
+    title : 
+    description : 
+    release_year : 
+    language_id : 
+    rental_duration : 
+    rental_rate : 
+    length : 
+    replacement_cost : 
+    rating : 
+    last_update : 
+    special_features : 
+    fulltext : 
+  query : |
+    SELECT
+       film_id , title , description , release_year , language_id , rental_duration , rental_rate , length , replacement_cost , rating , last_update , special_features , fulltext 
+    FROM
+      film
+    ORDER BY
+       film_id 
+    ;
+
+- table-name : film_actor
+  column-name :
+    actor_id : 
+    film_id : 
+    last_update : 
+  query : |
+    SELECT
+       actor_id , film_id , last_update 
+    FROM
+      film_actor
+    ORDER BY
+       actor_id , film_id 
+    ;
+
+- table-name : film_category
+  column-name :
+    film_id : 
+    category_id : 
+    last_update : 
+  query : |
+    SELECT
+       film_id , category_id , last_update 
+    FROM
+      film_category
+    ORDER BY
+       film_id , category_id 
+    ;
+
+- table-name : inventory
+  column-name :
+    inventory_id : 
+    film_id : 
+    store_id : 
+    last_update : 
+  query : |
+    SELECT
+       inventory_id , film_id , store_id , last_update 
+    FROM
+      inventory
+    ORDER BY
+       inventory_id 
+    ;
+
+- table-name : language
+  column-name :
+    language_id : 
+    name : 
+    last_update : 
+  query : |
+    SELECT
+       language_id , name , last_update 
+    FROM
+      language
+    ORDER BY
+       language_id 
+    ;
+
+- table-name : payment
+  column-name :
+    payment_id : 
+    customer_id : 
+    staff_id : 
+    rental_id : 
+    amount : 
+    payment_date : 
+  query : |
+    SELECT
+       payment_id , customer_id , staff_id , rental_id , amount , payment_date 
+    FROM
+      payment
+    ORDER BY
+       payment_id 
+    ;
+
+- table-name : rental
+  column-name :
+    rental_id : 
+    rental_date : 
+    inventory_id : 
+    customer_id : 
+    return_date : 
+    staff_id : 
+    last_update : 
+  query : |
+    SELECT
+       rental_id , rental_date , inventory_id , customer_id , return_date , staff_id , last_update 
+    FROM
+      rental
+    ORDER BY
+       rental_id 
+    ;
+
+- table-name : staff
+  column-name :
+    staff_id : 
+    first_name : 
+    last_name : 
+    address_id : 
+    email : 
+    store_id : 
+    active : 
+    username : 
+    password : 
+    last_update : 
+    picture : 
+  query : |
+    SELECT
+       staff_id , first_name , last_name , address_id , email , store_id , active , username , password , last_update , picture 
+    FROM
+      staff
+    ORDER BY
+       staff_id 
+    ;
+
+- table-name : store
+  column-name :
+    store_id : 
+    manager_staff_id : 
+    address_id : 
+    last_update : 
+  query : |
+    SELECT
+       store_id , manager_staff_id , address_id , last_update 
+    FROM
+      store
+    ORDER BY
+       store_id 
+    ;
+
+- table-name : actor_info
+  column-name :
+    actor_id : 
+    first_name : 
+    last_name : 
+    film_info : 
+  query : |
+    SELECT
+       actor_id , first_name , last_name , film_info 
+    FROM
+      actor_info
+    ;
+
+- table-name : customer_list
+  column-name :
+    id : 
+    name : 
+    address : 
+    zip code : 
+    phone : 
+    city : 
+    country : 
+    notes : 
+    sid : 
+  query : |
+    SELECT
+       id , name , address , zip code , phone , city , country , notes , sid 
+    FROM
+      customer_list
+    ;
+
+- table-name : film_list
+  column-name :
+    fid : 
+    title : 
+    description : 
+    category : 
+    price : 
+    length : 
+    rating : 
+    actors : 
+  query : |
+    SELECT
+       fid , title , description , category , price , length , rating , actors 
+    FROM
+      film_list
+    ;
+
+- table-name : nicer_but_slower_film_list
+  column-name :
+    fid : 
+    title : 
+    description : 
+    category : 
+    price : 
+    length : 
+    rating : 
+    actors : 
+  query : |
+    SELECT
+       fid , title , description , category , price , length , rating , actors 
+    FROM
+      nicer_but_slower_film_list
+    ;
+
+- table-name : sales_by_film_category
+  column-name :
+    category : 
+    total_sales : 
+  query : |
+    SELECT
+       category , total_sales 
+    FROM
+      sales_by_film_category
+    ;
+
+- table-name : sales_by_store
+  column-name :
+    store : 
+    manager : 
+    total_sales : 
+  query : |
+    SELECT
+       store , manager , total_sales 
+    FROM
+      sales_by_store
+    ;
+
+- table-name : staff_list
+  column-name :
+    id : 
+    name : 
+    address : 
+    zip code : 
+    phone : 
+    city : 
+    country : 
+    sid : 
+  query : |
+    SELECT
+       id , name , address , zip code , phone , city , country , sid 
+    FROM
+      staff_list
+    ;
+
+

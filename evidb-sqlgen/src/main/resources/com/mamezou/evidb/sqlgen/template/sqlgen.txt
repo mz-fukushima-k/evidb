@@ -1,0 +1,15 @@
+settings:
+  items:
+[# th:each="tableMeta : ${tableMetas}"]    - table-name : [( ${#stringHelper.removeNewLine(tableMeta.name)} )]
+      table-comment : [( ${#stringHelper.removeNewLine(tableMeta.comment)} )]
+      column-name :
+    [# th:each="columnMeta,stat : ${tableMeta.columnMetas}"]    [( ${columnMeta.name} )] : [( ${#stringHelper.removeNewLine(columnMeta.comment)} )]
+    [/]  query : |
+        SELECT
+          [# th:each="columnMeta,stat : ${tableMeta.columnMetas}"][( ${stat.first ? '':','} )] [( ${columnMeta.name} )] [/]
+        FROM
+          [( ${tableMeta.schemaName} )][( ${#strings.isEmpty(tableMeta.schemaName) ? '' : '.'  } )][( ${tableMeta.name} )]
+        [# th:unless="${#lists.isEmpty(tableMeta.primaryKeyColumnMetas)}" ]ORDER BY
+          [# th:each="columnMeta,stat : ${tableMeta.primaryKeyColumnMetas}"][( ${stat.first ? '':','} )] [( ${columnMeta.name} )] [/][/]
+
+[/]
