@@ -5,7 +5,7 @@ import java.util.Collection;
 import lombok.Data;
 
 @Data
-public class Delta {
+public class DeltaItems {
 	private String name;
 	private int before;
 	private int after;

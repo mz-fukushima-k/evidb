@@ -27,6 +27,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import com.mamezou.evidb.core.exception.ApplicationException;
+import com.mamezou.evidb.diff.model.DeltaItems;
 import com.mamezou.evidb.diff.model.Item;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
@@ -128,7 +129,7 @@ public class DiffTask extends Task {
 	 */
 	protected void diffAll() {
 
-		List<com.mamezou.evidb.diff.model.Delta> deltas = new ArrayList<>();
+		List<DeltaItems> deltaItemsList = new ArrayList<>();
 
 		File beforeDir = new File(before);
 		File afterDir = new File(after);
@@ -146,12 +147,12 @@ public class DiffTask extends Task {
 			// diff
 			Patch<String> patch = DiffUtils.diff(beforeCsv, afterCsv);
 
-			com.mamezou.evidb.diff.model.Delta delta = reportDiff(beforeFile, patch, beforeCsv, afterCsv);
+			DeltaItems deltaItems = reportDiff(beforeFile, patch, beforeCsv, afterCsv);
 
-			delta.setBefore(beforeCsv.size());
-			delta.setAfter(afterCsv.size());
+			deltaItems.setBefore(beforeCsv.size());
+			deltaItems.setAfter(afterCsv.size());
 
-			deltas.add(delta);
+			deltaItemsList.add(deltaItems);
 		}
 
 		Map<String, Object> beans = null;
@@ -171,10 +172,10 @@ public class DiffTask extends Task {
 		templateSheetNames.add("summary");
 		sheetNames.add("summary");
 		beans = new HashMap<>();
-		beans.put("deltas", deltas);
+		beans.put("deltas", deltaItemsList);
 		params.add(beans);
 
-		for (com.mamezou.evidb.diff.model.Delta d : deltas) {
+		for (DeltaItems d : deltaItemsList) {
 			if (!d.getDetails().isEmpty()) {
 				templateSheetNames.add("report");
 				sheetNames.add(d.getName());
@@ -203,19 +204,19 @@ public class DiffTask extends Task {
 	 * @param fileName
 	 * @param patch
 	 */
-	private com.mamezou.evidb.diff.model.Delta reportDiff(String fileName, Patch<String> patch,
+	private DeltaItems reportDiff(String fileName, Patch<String> patch,
 			List<String> beforeCsv, List<String> afterCsv) {
 
 		CSVParser csvParser = new CSVParser();
 
-		com.mamezou.evidb.diff.model.Delta delta = new com.mamezou.evidb.diff.model.Delta();
+		DeltaItems deltaItems = new DeltaItems();
 
 		List<Delta<String>> deltas = patch.getDeltas();
 
-		delta.setCreate(0);
-		delta.setUpdate(0);
-		delta.setDelete(0);
-		delta.setDetails(new ArrayList<>());
+		deltaItems.setCreate(0);
+		deltaItems.setUpdate(0);
+		deltaItems.setDelete(0);
+		deltaItems.setDetails(new ArrayList<>());
 
 		if (deltas.size() > 0) {
 			// ヘッダ行の追加
@@ -234,7 +235,7 @@ public class DiffTask extends Task {
 				columns.add(new Item(s, FILL_PATTERN.HEADER.getText()));
 			}
 
-			delta.getDetails().add(columns);
+			deltaItems.getDetails().add(columns);
 
 		}
 
@@ -245,7 +246,7 @@ public class DiffTask extends Task {
 
 			if (before == after) {
 
-				delta.setUpdate(delta.getUpdate() + before);
+				deltaItems.setUpdate(deltaItems.getUpdate() + before);
 
 				for (int i = 0; i < before; i++) {
 
@@ -291,14 +292,14 @@ public class DiffTask extends Task {
 						}
 					}
 
-					delta.getDetails().add(beforeColumns);
-					delta.getDetails().add(afterColumns);
+					deltaItems.getDetails().add(beforeColumns);
+					deltaItems.getDetails().add(afterColumns);
 
 				}
 
 			} else if (before < after) {
 
-				delta.setCreate(delta.getCreate() + after - before);
+				deltaItems.setCreate(deltaItems.getCreate() + after - before);
 
 				// 追加されたレコード
 				for (int i = 0; i < after; i++) {
@@ -320,12 +321,12 @@ public class DiffTask extends Task {
 						columns.add(new Item(getElement(afterItems, j), FILL_PATTERN.ADD.getText()));
 					}
 
-					delta.getDetails().add(columns);
+					deltaItems.getDetails().add(columns);
 
 				}
 
 			} else if (before > after) {
-				delta.setDelete(delta.getDelete() + before - after);
+				deltaItems.setDelete(deltaItems.getDelete() + before - after);
 
 				for (int i = 0; i < before; i++) {
 
@@ -346,7 +347,7 @@ public class DiffTask extends Task {
 					for (int j = 0; j < beforeItems.length; j++) {
 						columns.add(new Item(getElement(beforeItems, j), FILL_PATTERN.DELETE.getText()));
 					}
-					delta.getDetails().add(columns);
+					deltaItems.getDetails().add(columns);
 				}
 
 			}
@@ -354,9 +355,9 @@ public class DiffTask extends Task {
 		}
 
 		int dot = StringUtils.indexOf(fileName, ".");
-		delta.setName(dot >= 0 ? StringUtils.substring(fileName, 0, dot) : fileName);
+		deltaItems.setName(dot >= 0 ? StringUtils.substring(fileName, 0, dot) : fileName);
 
-		return delta;
+		return deltaItems;
 
 	}
 
@@ -429,7 +430,6 @@ public class DiffTask extends Task {
 		try (
 				CSVReader csvReader = new CSVReader(
 						new BufferedReader(new InputStreamReader(new FileInputStream(inFile), "utf-8"))); //
-
 		) {
 			while (true) {
 				String[] s = csvReader.readNext();
