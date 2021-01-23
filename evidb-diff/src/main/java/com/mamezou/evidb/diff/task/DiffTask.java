@@ -22,6 +22,8 @@ import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -190,8 +192,17 @@ public class DiffTask extends Task {
 		try (InputStream in = this.getClass().getResourceAsStream("/com/mamezou/evidb/diff/template/report.xlsx");
 				OutputStream out = new FileOutputStream(new File(reportDir, reportFile))) {
 			Workbook workbook = transformer.transform(in, templateSheetNames, sheetNames, params);
-			if (params.size() == 1) {
+			if (sheetNames.size() == 1) {
 				workbook.removeSheetAt(1);
+			} else {
+				for (int i = 1; i < sheetNames.size(); i++) {
+					Sheet sheet = workbook.getSheetAt(i);
+					Row row = sheet.getRow(0);
+					short colSize = row.getLastCellNum();
+					for (short col = 0; col < colSize; col++) {
+						sheet.autoSizeColumn(col, true);
+					}
+				}
 			}
 			workbook.write(out);
 			workbook.close();
