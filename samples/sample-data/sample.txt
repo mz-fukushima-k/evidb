@@ -1,0 +1,7 @@
+サンプルスキーマ　ダウンロード元
+https://www.postgresqltutorial.com/postgresql-sample-database/
+
+
+pg_restore -U postgres -d dvdrental ./dvdrental.tar
+
+
