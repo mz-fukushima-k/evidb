@@ -101,7 +101,7 @@ dependencies {
     evidbRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
     evidbRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
     evidbRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
-    evidbRuntime 'org.postgresql:postgresql:42.0.0' 
+    evidbRuntime 'org.postgresql:postgresql:42.0.0'             <--- この行を適宜変更する。
 }
 ：
 ```
