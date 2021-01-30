@@ -9,10 +9,8 @@ EvidenceDB は DBのテーブルやビューのダンプを採取しダンプ同
 
 `gradlew clean install -x test `
 
-## 設定ファイル説明
-
+## 設定ファイル
 samples フォルダに設定ファイル（build.gradle）のサンプルが入っています。
-
 build.gradle
 ```
 apply plugin: 'java'
