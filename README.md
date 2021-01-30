@@ -39,7 +39,7 @@ dependencies {
     evidbRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
     evidbRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
     evidbRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
-    **evidbRuntime 'org.postgresql:postgresql:42.0.0'**                         **① JDBCドライバーの設定**
+    evidbRuntime 'org.postgresql:postgresql:42.0.0'
 }
 
 task sqlgen doLast {
@@ -91,3 +91,24 @@ task diff doLast {
 }
 
 ```
+## JDBCドライバーの設定
+dependencies へ適宜仕様したいDBのJDBCドライバのリポジトリを記述してください。
+
+設定ファイル(build.gradle)抜粋
+```
+：
+dependencies {
+    evidbRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
+    evidbRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
+    evidbRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
+    evidbRuntime 'org.postgresql:postgresql:42.0.0' 
+}
+：
+```
+
+
+## sqlgen タスク
+
+## dump タスク
+
+## diff タスク
