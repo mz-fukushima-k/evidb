@@ -9,4 +9,82 @@ EvidenceDB は DBのテーブルやビューのダンプを採取しダンプ同
 
 `gradlew clean install -x test `
 
+## 設定ファイル説明
 
+samples フォルダに設定ファイル（build.gradle）のサンプルが入っています。
+
+build.gradle
+```
+apply plugin: 'java'
+
+def root = "$rootDir"
+
+wrapper {
+    gradleVersion = '6.6.1'
+}
+
+configurations {
+    ebdviRuntime
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    ebdviRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
+    ebdviRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
+    ebdviRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
+    ebdviRuntime 'org.postgresql:postgresql:42.0.0'
+}
+
+task sqlgen doLast {
+
+    ant.taskdef( resource: 'sqlgentask.properties' , classpath: configurations.ebdviRuntime.asPath )
+
+    ant.sqlgen( url                     : "jdbc:postgresql://localhost:5432/dvdrental"
+              , user                    : "postgres"
+              , password                : "admin"
+              , driver                  : "org.postgresql.Driver"
+              , dialect                 : "postgres"
+              , tableTypes              : "TABLE"
+              , outputPath              : "$root/sqlgen.yml"
+              , tableNamePattern        : ".*"
+              , ignoredTableNamePattern : ""
+              , templateDir             : "$root/template/"
+    )
+
+}
+
+task dump doLast {
+
+    def dir = new File("$root/dump")
+    dir.mkdir()
+
+    ant.taskdef( resource: 'dumptask.properties' , classpath: configurations.ebdviRuntime.asPath )
+
+    ant.dump( url        : "jdbc:postgresql://localhost:5432/dvdrental"
+            , user       : "postgres"
+            , password   : "admin"
+            , driver     : "org.postgresql.Driver"
+            , outputDir  : "$root/dump"
+            , configFile : "$root/sqlgen.yml"
+    )
+
+}
+
+task diff doLast {
+
+    def dir = new File("$root/diff")
+    dir.mkdir()
+
+    ant.taskdef( resource: 'difftask.properties' , classpath: configurations.ebdviRuntime.asPath )
+
+    ant.diff( dumpDir   : "$root/dump"
+            , reportDir : "$root/diff"
+    )
+
+}
+
+```
