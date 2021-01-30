@@ -27,7 +27,7 @@ wrapper {
 }
 
 configurations {
-    ebdviRuntime
+    evidbRuntime
 }
 
 repositories {
@@ -36,15 +36,15 @@ repositories {
 }
 
 dependencies {
-    ebdviRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
-    ebdviRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
-    ebdviRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
-    ebdviRuntime 'org.postgresql:postgresql:42.0.0'
+    evidbRuntime 'com.mamezou.evidb:evidb-sqlgen:1.0-SNAPSHOT'
+    evidbRuntime 'com.mamezou.evidb:evidb-dump:1.0-SNAPSHOT'
+    evidbRuntime 'com.mamezou.evidb:evidb-diff:1.0-SNAPSHOT'
+    **evidbRuntime 'org.postgresql:postgresql:42.0.0'**                         **① JDBCドライバーの設定**
 }
 
 task sqlgen doLast {
 
-    ant.taskdef( resource: 'sqlgentask.properties' , classpath: configurations.ebdviRuntime.asPath )
+    ant.taskdef( resource: 'sqlgentask.properties' , classpath: configurations.evidbRuntime.asPath )
 
     ant.sqlgen( url                     : "jdbc:postgresql://localhost:5432/dvdrental"
               , user                    : "postgres"
@@ -65,7 +65,7 @@ task dump doLast {
     def dir = new File("$root/dump")
     dir.mkdir()
 
-    ant.taskdef( resource: 'dumptask.properties' , classpath: configurations.ebdviRuntime.asPath )
+    ant.taskdef( resource: 'dumptask.properties' , classpath: configurations.evidbRuntime.asPath )
 
     ant.dump( url        : "jdbc:postgresql://localhost:5432/dvdrental"
             , user       : "postgres"
@@ -82,7 +82,7 @@ task diff doLast {
     def dir = new File("$root/diff")
     dir.mkdir()
 
-    ant.taskdef( resource: 'difftask.properties' , classpath: configurations.ebdviRuntime.asPath )
+    ant.taskdef( resource: 'difftask.properties' , classpath: configurations.evidbRuntime.asPath )
 
     ant.diff( dumpDir   : "$root/dump"
             , reportDir : "$root/diff"
