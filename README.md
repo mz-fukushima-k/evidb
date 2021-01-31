@@ -150,7 +150,8 @@ task sqlgen doLast {
   ------------|-------|---
 | url | JDBCドライバの接続先URL | |
 | user | DBユーザー名 | |
-| driver | DBパスワード | |
+| password | DBパスワード | |
+| driver | JDBCドライバーのクラス名 | |
 | dialect | DBダイアレクト |db2,h2,hsqldb,mssql2008,mssql,mysql,oracle11,oracle,postgres が指定可能|
 | tableTypes | テーブル種別 |TABLE,VIEW,MATERIALIZED VIEW がカンマ区切りで複数指定可能|
 | outputPath | 設定ファイル出力先 | |
@@ -160,5 +161,44 @@ task sqlgen doLast {
 
 
 ## dump タスク
+実際にDB接続を行いテーブルのデータダンプを取得するタスクです。
+
+#### 実行方法
+
+```
+gradlew dump
+```
+
+#### 設定
+
+設定ファイル(build.gradle)抜粋
+
+```
+task dump doLast {
+
+    def dir = new File("$root/dump")
+    dir.mkdir()
+
+    ant.taskdef( resource: 'dumptask.properties' , classpath: configurations.evidbRuntime.asPath )
+
+    ant.dump( url        : "jdbc:postgresql://localhost:5432/dvdrental"
+            , user       : "postgres"
+            , password   : "admin"
+            , driver     : "org.postgresql.Driver"
+            , outputDir  : "$root/dump"
+            , configFile : "$root/sqlgen.yml"
+    )
+
+}
+```
+
+| プロパティ名 | 設定値 |備考|
+  ------------|-------|---
+| url | JDBCドライバの接続先URL | |
+| user | DBユーザー名 | |
+| password | DBパスワード | |
+| driver | JDBCドライバーのクラス名 | |
+| outputDir | データダンプ出力先ディレクトリ | |
+| configFile | 設定ファイル(sqlgen.yml) のパス | |
 
 ## diff タスク
