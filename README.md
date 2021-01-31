@@ -145,6 +145,17 @@ task sqlgen doLast {
 }
 ：
 ```
+| プロパティ名 | 設定値 |備考|
+----|---- 
+| url | JDBCドライバの接続先URL ||
+| user | DBユーザー名 ||
+| driver | DBパスワード ||
+| dialect | DBダイアレクト |db2,h2,hsqldb,mssql2008,mssql,mysql,oracle11,oracle,postgres が指定可能|
+| tableTypes | テーブル種別 |TABLE,VIEW,MATERIALIZED VIEW がカンマ区切りで複数指定可能|
+| outputPath | 設定ファイル出力先 ||
+| tableNamePattern | 対象テーブル名パターン ||
+| ignoredTableNamePattern | 除外テーブル名パターン ||
+| templateDir | 設定ファイル(sqlgen.yml) のテンプレート格納ディレクトリ ||
 
 
 ## dump タスク
