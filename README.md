@@ -4,6 +4,8 @@
 EvidenceDB は DBのテーブルやビューのダンプを採取しダンプ同士の差分をEXCELで出力するためのタスク群です。
 また、DBのDDLから設定ファイルを作成するタスクも含まれております。
 
+![summary](https://user-images.githubusercontent.com/77838284/106373714-b31f2c00-63bf-11eb-88fe-05f6c42cb6a2.png)
+
 **差分出力の例**
 
 ![diff-sample](https://user-images.githubusercontent.com/77838284/106358617-b16a4f80-6350-11eb-9e5e-10f41acec872.png)
