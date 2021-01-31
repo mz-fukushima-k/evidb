@@ -116,13 +116,13 @@ dependencies {
 DBのメタ情報からダンプツール用の設定ファイル (sqlgen.yml) を生成するタスクです。
 実行後、カレントディレクトリに sqlgen.yml が出力されます。
 
-### 実行方法
+#### 実行方法
 
 ```
 gradlew sqlgen
 ```
 
-### 設定
+#### 設定
 設定ファイル(build.gradle)抜粋
 ```
 ：
