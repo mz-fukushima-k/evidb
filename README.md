@@ -174,6 +174,7 @@ gradlew dump
 設定ファイル(build.gradle)抜粋
 
 ```
+:
 task dump doLast {
 
     def dir = new File("$root/dump")
@@ -190,6 +191,7 @@ task dump doLast {
     )
 
 }
+:
 ```
 
 | プロパティ名 | 設定値 |備考|
@@ -201,4 +203,38 @@ task dump doLast {
 | outputDir | データダンプ出力先ディレクトリ | |
 | configFile | 設定ファイル(sqlgen.yml) のパス | |
 
+
 ## diff タスク
+最新のデータダンプ２件を比較し差分レポートを出力するタスクです。
+
+#### 実行方法
+
+```
+gradlew diff
+```
+
+#### 設定
+
+設定ファイル(build.gradle)抜粋
+
+```
+:
+task diff doLast {
+
+    def dir = new File("$root/diff")
+    dir.mkdir()
+
+    ant.taskdef( resource: 'difftask.properties' , classpath: configurations.evidbRuntime.asPath )
+
+    ant.diff( dumpDir   : "$root/dump"
+            , reportDir : "$root/diff"
+    )
+
+}
+:
+```
+
+| プロパティ名 | 設定値 |備考|
+  ------------|-------|---
+| dumpDir | データダンプ出力先ディレクトリ | |
+| reportDir | 差分レポート出力先ディレクトリ | |
