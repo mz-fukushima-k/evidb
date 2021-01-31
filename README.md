@@ -13,7 +13,9 @@ EvidenceDB は DBのテーブルやビューのダンプを採取しダンプ同
 ## インストール
 ダウンロードしたフォルダにて以下のコマンドを実行します。
 
-`gradlew clean install -x test `
+```
+gradlew clean install -x test 
+```
 
 ## 設定ファイル
 samples フォルダに設定ファイル（build.gradle）のサンプルが入っています。
@@ -116,7 +118,9 @@ DBのメタ情報からダンプツール用の設定ファイル (sqlgen.yml) �
 
 ### 実行方法
 
-`gradlew sqlgen`
+```
+gradlew sqlgen
+```
 
 ### 設定
 設定ファイル(build.gradle)抜粋
