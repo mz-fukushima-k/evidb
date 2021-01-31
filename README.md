@@ -2,7 +2,7 @@
 ## 概要
 
 EvidenceDB は DBのテーブルやビューのダンプを採取しダンプ同士の差分をEXCELで出力するためのタスク群です。
-また、DBのDDLから設定ファイルを作成するタスクも含まれております。
+また、DBのメタ情報から設定ファイルを作成するタスクも含まれております。
 
 ![summary](https://user-images.githubusercontent.com/77838284/106373714-b31f2c00-63bf-11eb-88fe-05f6c42cb6a2.png)
 
@@ -110,6 +110,38 @@ dependencies {
 
 
 ## sqlgen タスク
+
+DBのメタ情報からダンプツール用の設定ファイル (sqlgen.yml) を生成するタスクです。
+実行後、カレントディレクトリに sqlgen.yml が出力されます。
+
+### 実行方法
+
+`gradlew sqlgen`
+
+### 設定
+設定ファイル(build.gradle)抜粋
+```
+：
+task sqlgen doLast {
+
+    ant.taskdef( resource: 'sqlgentask.properties' , classpath: configurations.evidbRuntime.asPath )
+
+    ant.sqlgen( url                     : "jdbc:postgresql://localhost:5432/dvdrental"
+              , user                    : "postgres"
+              , password                : "admin"
+              , driver                  : "org.postgresql.Driver"
+              , dialect                 : "postgres"
+              , tableTypes              : "TABLE"
+              , outputPath              : "$root/sqlgen.yml"
+              , tableNamePattern        : ".*"
+              , ignoredTableNamePattern : ""
+              , templateDir             : "$root/template/"
+    )
+
+}
+：
+```
+
 
 ## dump タスク
 
